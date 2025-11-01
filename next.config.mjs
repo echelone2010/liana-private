@@ -1,11 +1,7 @@
-// next.config.js
+// next.config.mjs
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // УСТАРЕВШИЙ IMPORT В ESM С Next.js 15 БОЛЬШЕ НЕ НУЖЕН:
-  // import { fileURLToPath } from 'url';
-  // import { dirname, resolve } from 'path';
-  
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -15,16 +11,19 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // ИСПРАВЛЕНИЕ 1: Перенос ключа для Next.js 15 (устраняет предупреждение)
-  // Мы предполагаем, что вы используете 'bcryptjs', а не нативный 'bcrypt'
   serverExternalPackages: ['better-sqlite3', 'sqlite3'], 
 
-  // ИСПРАВЛЕНИЕ 2: Секция Webpack удалена, 
-  // так как ручная настройка алиасов в Next.js 15 часто конфликтует
-  // (Это должно устранить ошибку "Module not found: Can't resolve '@/...'" )
-  
-  // Если ошибка "Module not found" сохранится, 
-  // вам нужно проверить файл tsconfig.json (см. ниже).
+  // ✅ ИСПРАВЛЕНИЕ: Явное разрешение алиасов через Webpack с использованием ESM-синтаксиса
+  webpack: (config, { isServer }) => {
+    // Импорт нативных модулей Node.js через require внутри webpack
+    const path = require('path'); 
+    
+    // Добавляем алиас, указывающий @/ на корень проекта
+    // path.resolve(__dirname, '.') указывает на корень, где лежит next.config.mjs
+    config.resolve.alias['@'] = path.resolve(__dirname, '.'); 
+
+    return config;
+  },
 };
 
 export default nextConfig;
