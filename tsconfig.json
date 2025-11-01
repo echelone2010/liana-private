@@ -21,11 +21,12 @@
         "name": "next"
       }
     ],
-    // 👇 ИСПРАВЛЕНИЕ ЗДЕСЬ
     "paths": {
+      // 👇 ИСПРАВЛЕННЫЙ АЛИАС ДЛЯ ПАПКИ 'src'
       "@/*": ["./src/*"] 
     },
     "baseUrl": "."
   },
-  // ...
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
