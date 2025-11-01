@@ -14,21 +14,20 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // 💡 CORRECTED KEY FOR APP ROUTER 
+  // 💡 ЭКСПЕРИМЕНТАЛЬНЫЙ КЛЮЧ ДЛЯ ВНЕШНИХ ПАКЕТОВ В APP ROUTER
   experimental: {
-    serverComponentsExternalPackages: ['better-sqlite3'],
-  }, 
-  // END CORRECTED KEY
+    serverComponentsExternalPackages: ['better-sqlite3', 'sqlite3', 'bcrypt'],
+  },
   webpack: (config, { isServer }) => {
     // Получаем __dirname в ESM
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
 
-    // Настройка алиаса (Ensure this path is correct if you use '@' aliases)
+    // Настройка алиаса @
     config.resolve.alias = {
       ...config.resolve.alias,
-      // You should resolve to the 'src' or 'root' directory where you define '@'
-      '@': resolve(__dirname, './src'), // Example if your source code is in 'src'
+      // ВНИМАНИЕ: Убедитесь, что 'src' — это ваша корневая папка для кода
+      '@': resolve(__dirname, './src'), 
     };
 
     return config;
