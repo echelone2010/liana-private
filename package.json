@@ -88,9 +88,9 @@
     "@types/express": "latest",
     "@types/jsonwebtoken": "latest",
     "@types/multer": "latest",
-    "@types/node": "^22",
+    "@types/node": "latest", 
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "typescript": "latest" 
   }
 }
