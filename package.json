@@ -11,7 +11,7 @@
     "db:migrate": "node scripts/migrate.js"
   },
   "engines": {
-    "node": "20.x"
+    "node": "20.x" 
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
@@ -80,16 +80,18 @@
     "vaul": "latest",
     "zod": "3.25.76",
     "sqlite3": "5.1.7",
-    "typescript": "latest",
-    "@types/node": "latest",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    // ✅ ИСПРАВЛЕНИЕ: Переносим TypeScript в dependencies для доступа в build worker
+    "typescript": "latest", 
+    "@types/node": "latest" 
+  },
+  "devDependencies": {
     "@types/bcrypt": "latest",
     "@types/pg": "^8.11.10",
     "@types/cors": "latest",
     "@types/express": "latest",
     "@types/jsonwebtoken": "latest",
-    "@types/multer": "latest"
-  },
-  "devDependencies": {}
+    "@types/multer": "latest",
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
 }
