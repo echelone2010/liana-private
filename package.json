@@ -80,7 +80,6 @@
     "vaul": "latest",
     "zod": "3.25.76",
     "sqlite3": "5.1.7",
-    // ✅ ИСПРАВЛЕНИЕ: Переносим TypeScript в dependencies для доступа в build worker
     "typescript": "latest", 
     "@types/node": "latest" 
   },
