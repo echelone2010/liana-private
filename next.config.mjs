@@ -1,7 +1,14 @@
 // next.config.mjs
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+// Получаем эквивалент __dirname для ESM-модулей
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ... существующие настройки
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -14,13 +21,10 @@ const nextConfig = {
   serverExternalPackages: ['better-sqlite3', 'sqlite3'], 
 
   // ✅ ИСПРАВЛЕНИЕ: Явное разрешение алиасов через Webpack с использованием ESM-синтаксиса
+  // Мы используем импортированные функции 'resolve' и '__dirname'
   webpack: (config, { isServer }) => {
-    // Импорт нативных модулей Node.js через require внутри webpack
-    const path = require('path'); 
-    
-    // Добавляем алиас, указывающий @/ на корень проекта
-    // path.resolve(__dirname, '.') указывает на корень, где лежит next.config.mjs
-    config.resolve.alias['@'] = path.resolve(__dirname, '.'); 
+    // Устанавливаем алиас '@' на корень проекта
+    config.resolve.alias['@'] = resolve(__dirname, '.');
 
     return config;
   },
