@@ -11,7 +11,7 @@
     "db:migrate": "node scripts/migrate.js"
   },
   "engines": {
-    "node": "20.x" 
+    "node": "20.x"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
@@ -79,18 +79,17 @@
     "tw-animate-css": "1.3.3",
     "vaul": "latest",
     "zod": "3.25.76",
-    "sqlite3": "5.1.7"
-  },
-  "devDependencies": {
+    "sqlite3": "5.1.7",
+    "typescript": "latest",
+    "@types/node": "latest",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "@types/bcrypt": "latest",
     "@types/pg": "^8.11.10",
     "@types/cors": "latest",
     "@types/express": "latest",
     "@types/jsonwebtoken": "latest",
-    "@types/multer": "latest",
-    "@types/node": "latest", 
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "latest" 
-  }
+    "@types/multer": "latest"
+  },
+  "devDependencies": {}
 }
