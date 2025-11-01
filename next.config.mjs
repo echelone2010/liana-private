@@ -1,10 +1,11 @@
 // next.config.js
 
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // УСТАРЕВШИЙ IMPORT В ESM С Next.js 15 БОЛЬШЕ НЕ НУЖЕН:
+  // import { fileURLToPath } from 'url';
+  // import { dirname, resolve } from 'path';
+  
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -14,24 +15,16 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // 💡 ЭКСПЕРИМЕНТАЛЬНЫЙ КЛЮЧ ДЛЯ ВНЕШНИХ ПАКЕТОВ В APP ROUTER
-  experimental: {
-    serverComponentsExternalPackages: ['better-sqlite3', 'sqlite3', 'bcrypt'],
-  },
-  webpack: (config, { isServer }) => {
-    // Получаем __dirname в ESM
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
+  // ИСПРАВЛЕНИЕ 1: Перенос ключа для Next.js 15 (устраняет предупреждение)
+  // Мы предполагаем, что вы используете 'bcryptjs', а не нативный 'bcrypt'
+  serverExternalPackages: ['better-sqlite3', 'sqlite3'], 
 
-    // Настройка алиаса @
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      // ВНИМАНИЕ: Убедитесь, что 'src' — это ваша корневая папка для кода
-      '@': resolve(__dirname, './src'), 
-    };
-
-    return config;
-  },
+  // ИСПРАВЛЕНИЕ 2: Секция Webpack удалена, 
+  // так как ручная настройка алиасов в Next.js 15 часто конфликтует
+  // (Это должно устранить ошибку "Module not found: Can't resolve '@/...'" )
+  
+  // Если ошибка "Module not found" сохранится, 
+  // вам нужно проверить файл tsconfig.json (см. ниже).
 };
 
 export default nextConfig;
