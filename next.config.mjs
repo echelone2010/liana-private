@@ -1,30 +1,31 @@
-import path from "path"
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    // не блокирует билд при ошибках линтера
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // не блокирует билд при ошибках типов
     ignoreBuildErrors: true,
   },
   images: {
-    // отключает оптимизацию изображений (ускоряет деплой на Render)
     unoptimized: true,
   },
-  serverExternalPackages: ["better-sqlite3"],
-  webpack: (config) => {
-    // абсолютный alias для импорта через "@/"
+  serverExternalPackages: ['better-sqlite3'],
+  webpack: (config, { isServer }) => {
+    // Получаем __dirname в ESM
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+
+    // Настройка алиаса
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@": path.resolve(__dirname),
-    }
+      '@': resolve(__dirname), // вместо '.' используем реальный путь
+    };
 
-    // возвращаем конфиг, чтобы Next мог использовать alias
-    return config
+    return config;
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
